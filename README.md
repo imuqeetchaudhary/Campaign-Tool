@@ -1,6 +1,14 @@
+## Impementation by Abdul Muqeet Arshad
+
+---
+
+## Impementation by Ilyas
+
 ### Note
+
 - Add .env file ad project level (mean campaign-tool directry)
 - in .env add below line
+
 ```
 JWT_SECRET_KEY = jwtprivatekey
 ```
@@ -8,22 +16,29 @@ JWT_SECRET_KEY = jwtprivatekey
 ## Routes for users
 
 ### to register a new user
+
 - auth/register :post
+
 ```
 {
     username:
     password:
 }
 ```
+
 ### to login a user
+
 - auth/login :post
+
 ```
 {
     username:
     password:
 }
 ```
+
 -response
+
 ```
 {
     username:
@@ -34,16 +49,18 @@ JWT_SECRET_KEY = jwtprivatekey
 ```
 
 ### To get all users
-- user/all  :get  (protected route token required)
-- response back 
+
+- user/all :get (protected route token required)
+- response back
+
 ```
 {
     "users": [
         {
-            "_id": 
+            "_id":
             "username":
-            "password": 
-            "company": 
+            "password":
+            "company":
             "companiesAccess": [
                 {
                     "company":
@@ -54,9 +71,12 @@ JWT_SECRET_KEY = jwtprivatekey
 }
 
 ```
+
 ### To get A specific user detail
-- user/:id  :get (protected route token required)
-Response Back
+
+- user/:id :get (protected route token required)
+  Response Back
+
 ```
 {
     username:
@@ -67,75 +87,94 @@ Response Back
 ```
 
 ### To update A specific user detail
-- user/update/:id  :put (protected route token required)
+
+- user/update/:id :put (protected route token required)
+
 ```
 {
     username:
     password:
     company:
 }
-``` 
+```
 
 ### To request for company Acesss
+
 - user//send-mail :post
+
 ```
 {
     company:
 }
 ```
+
 ### To Add user to company access
+
 - user/add/company-access :put
 - Request.body
+
 ```
 {
     "id": (those users who request for company access)
     "name": (company name)
 }
 ```
+
 ### Create A company
-- company/create   (protected route Token required) :post
+
+- company/create (protected route Token required) :post
 - Req.body
+
 ```
 {
     name:
     id: (user id)
 }
 ```
+
 - Res.body
+
 ```
 {
-    "message": 
+    "message":
     "company": {
         "userAccess": []
-        "_id": 
-        "company": 
+        "_id":
+        "company":
     }
 }
 ```
 
-### Update A Company 
-- company/update:id  :post (protected route token required)
+### Update A Company
+
+- company/update:id :post (protected route token required)
 - Req.body
+
 ```
 {
     company:
 }
 ```
 
-### get All Companies 
-- company/all :get  (protected Route roken required)
+### get All Companies
 
+- company/all :get (protected Route roken required)
 
-### To delete A specific user 
-- user/delete/:id  :delete (protected route token required)
+### To delete A specific user
+
+- user/delete/:id :delete (protected route token required)
 - Response Back
+
 ```
 {
     message:
 }
 ```
+
 ### TO create campaign
+
 - campagin/create-campagin (protected route token required) :post
+
 ```
 {
     thematic:
@@ -148,12 +187,14 @@ Response Back
     company: _id
     isComplete: (*optional*)
     note: (**optional)
-    
+
 }
 ```
 
 ### to Update Campagin
+
 - campagin/update-campagin/:id (protected route token required) :put
+
 ```
 {
     thematic:
@@ -170,18 +211,22 @@ Response Back
 ```
 
 ### To Delete Campagin
+
 - campagin/delete-campagin/:id (protected route token required) :delete
 
-
 ### to get company campagin
+
 - campagin/get-campagin : post (protected route token required)
-- req.body take 
+- req.body take
+
 ```
 {
     company:
 }
 ```
+
 - response back
+
 ```
 {
     inProgress:[
@@ -193,8 +238,8 @@ Response Back
                     "action_type":
                 }
             ]
-            "_id": 
-            "thematic": 
+            "_id":
+            "thematic":
             "start_date":
             "end_date":
             "creater": (user id)
@@ -209,53 +254,52 @@ Response Back
                     "action_type":
                 }
             ]
-            "_id": 
-            "thematic": 
+            "_id":
+            "thematic":
             "start_date":
             "end_date":
             "creater": (user id)
         }
     ]
 }
-``` 
+```
 
+### To get a campagin detail
 
-
-
-
-
-### To get a campagin detail 
-- campagin/detail/:id  :get  (protected route token required)
+- campagin/detail/:id :get (protected route token required)
 - Response Back
+
 ```
 {
-    "isComplete": 
+    "isComplete":
     "actions": [
         {
             "channels": [
                 {
-                    "_id": 
+                    "_id":
                     "channel_type":
-                    "cost": 
+                    "cost":
                     "volumn":
                 }
-                
+
             ]
-            "_id": 
-            "action_type": 
-            "target": 
+            "_id":
+            "action_type":
+            "target":
         }
     ]
-    "_id": 
-    "thematic": 
-    "start_date": 
-    "end_date": 
-    "creater": 
+    "_id":
+    "thematic":
+    "start_date":
+    "end_date":
+    "creater":
 }
 ```
 
-### Create an Action 
+### Create an Action
+
 - campagin/create-action :post (protected route token required)
+
 ```
 {
     action_type:
@@ -271,7 +315,9 @@ Response Back
 ```
 
 ### to update Action
+
 - campagin/action-update :put (protected route token required)
+
 ```
 {
     action_type:
@@ -285,79 +331,87 @@ Response Back
     ]
 }
 ```
+
 ### to delete Action
-- campagin/action-delete/:id  :delete (protected route token required)
 
-
+- campagin/action-delete/:id :delete (protected route token required)
 
 ### Get campagins Calender(Marketing Plan)
-- campagin/marketing-plan :get  (protected route token required)
+
+- campagin/marketing-plan :get (protected route token required)
 - req.body
+
 ```
 {
     year:
     company:
 }
 ```
-- Response Back
- ```
- [
-     {
-        "month": "August",
-        "S1": [],
-        "S2": [],
-        "S3": [],
-        "S4": [
-            {
-                "isComplete":
-                "actions": [
-                    "6123445fdc497211fc5212cb"
-                ],
-                "_id":
-                "thematic":
-                "start_date":
-                "end_date":
-                "creater":
-                "__v": 0
-            }
-        ]
-    },
 
- ]
- ```
+- Response Back
+
+```
+[
+    {
+       "month": "August",
+       "S1": [],
+       "S2": [],
+       "S3": [],
+       "S4": [
+           {
+               "isComplete":
+               "actions": [
+                   "6123445fdc497211fc5212cb"
+               ],
+               "_id":
+               "thematic":
+               "start_date":
+               "end_date":
+               "creater":
+               "__v": 0
+           }
+       ]
+   },
+
+]
+```
 
 ### Export Calender
+
 - campagin/get-excel :get (protected route token required)
 - req.body
+
 ```
 {
     year:
     company:
 }
 ```
-- Response Back
- ```
- [
-     {
-        "month": "August",
-        "S1": [],
-        "S2": [],
-        "S3": [],
-        "S4": [
-            {
-                "isComplete":
-                "actions": [
-                    "6123445fdc497211fc5212cb"
-                ],
-                "_id":
-                "thematic":
-                "start_date":
-                "end_date":
-                "creater":
-                "__v": 0
-            }
-        ]
-    }
 
- ]
- ```
+- Response Back
+
+```
+[
+    {
+       "month": "August",
+       "S1": [],
+       "S2": [],
+       "S3": [],
+       "S4": [
+           {
+               "isComplete":
+               "actions": [
+                   "6123445fdc497211fc5212cb"
+               ],
+               "_id":
+               "thematic":
+               "start_date":
+               "end_date":
+               "creater":
+               "__v": 0
+           }
+       ]
+   }
+
+]
+```
