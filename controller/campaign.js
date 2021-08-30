@@ -304,48 +304,6 @@ exports.updateCampaign = promise(async (req, res) => {
 //
 //
 
-// async function updateCampagin(req, res) {
-//   try {
-//
-//  const { id } = req.params;
-//     const newCampaginValues = {
-//       $set: {
-//         ...req.body,
-//       },
-//     };
-//     const campagin = await Campaign.updateOne(
-//       {
-//         _id: id,
-//       },
-//       newCampaginValues
-//     );
-//     res.send({
-//       message: "Campagin Updated Successfully",
-//       campagin,
-//     });
-//   } catch (err) {
-//     res.send({
-//       message: err.message,
-//     });
-//   }
-// }
-
-// async function deleteCampagin(req, res) {
-//   try {
-//     const { id } = req.params;
-//     await Campaign.findByIdAndDelete({
-//       _id: id,
-//     });
-//     res.send({
-//       message: "Successfully Deleted",
-//     });
-//   } catch (err) {
-//     res.send({
-//       message: err.message,
-//     });
-//   }
-// }
-
 // async function getCampagins(req, res) {
 //   try {
 //     const { company } = req.body;
@@ -440,8 +398,6 @@ exports.updateCampaign = promise(async (req, res) => {
 // }
 
 // module.exports = {
-//   updateCampagin,
-//   deleteCampagin,
 //   getCampagins,
 //   campaginDetail,
 // };
