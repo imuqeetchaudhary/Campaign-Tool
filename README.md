@@ -136,6 +136,16 @@ https://campaign-tool-restapi.herokuapp.com/
 
 - campaign/get-user-company :get
 
+### to update a company
+
+- campaign/update-company/:id: :patch
+
+```js
+{
+  company: String;
+}
+```
+
 ---
 
 # Impementation by Ilyas

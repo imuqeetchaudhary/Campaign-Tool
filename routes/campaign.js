@@ -53,6 +53,8 @@ router.patch(
 
 router.get("/get-user-company", authentication, campaign.getUserCompany);
 
+router.patch("/update-company/:id", authentication, campaign.updateCompany);
+
 // router.post("/get-campagin", authentication, campagin.getCampagins);
 // router.get("/detail/:id", authentication, campagin.campaginDetail);
 

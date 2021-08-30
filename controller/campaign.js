@@ -290,6 +290,23 @@ exports.getUserCompany = promise(async (req, res) => {
 
   res.status(200).json({ company });
 });
+
+exports.updateCompany = promise(async (req, res) => {
+  const { id } = req.params;
+  const updateCompany = Company.updateOne(
+    { _id: id },
+    {
+      $set: {
+        ...req.body,
+      },
+    }
+  );
+
+  const company = await Company.findOne({ _id: id });
+  if (!company) throw new Exceptions.NotFound("No Company found");
+
+  res.status(200).json({ message: "Successfully updated company", company });
+});
 //
 //
 //
