@@ -33,6 +33,12 @@ router.post(
   campaign.getExcel
 );
 
+router.delete(
+  "/delete/:id",
+  authentication,
+  campaign.deleteCampaign
+);
+
 // router.delete("/delete-campagin/:id", authentication, campagin.deleteCampagin);
 // router.post("/create-campagin", authentication, campagin.createCampagin);
 // router.put("/update-campagin/:id", authentication, campagin.updateCampagin);

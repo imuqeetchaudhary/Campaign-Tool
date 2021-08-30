@@ -70,6 +70,10 @@
 }
 ```
 
+### to delete a campaign
+
+- campaign/delete/:id: :delete
+
 ---
 
 # Impementation by Ilyas

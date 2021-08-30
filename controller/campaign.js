@@ -239,6 +239,12 @@ exports.getExcel = async (req, res) => {
   }
 };
 
+exports.deleteCampaign = promise(async (req, res) => {
+  const { id } = req.params;
+  const deleteCampaign = await Campaign.deleteOne({ _id: id });
+  res.status(200).json({ message: "Successfully deleted campaign" });
+});
+
 //
 //
 //
