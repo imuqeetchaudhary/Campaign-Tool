@@ -284,6 +284,12 @@ exports.updateCampaign = promise(async (req, res) => {
   res.status(200).json({ message: "Successfully updated campaign", campaign });
 });
 
+exports.getUserCompany = promise(async (req, res) => {
+  const company = await Company.findOne({ creater: req.user._id });
+  if (!company) throw new Exceptions.NotFound("No Company found");
+
+  res.status(200).json({ company });
+});
 //
 //
 //

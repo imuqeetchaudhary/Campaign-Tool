@@ -132,6 +132,10 @@ https://campaign-tool-restapi.herokuapp.com/
 }
 ```
 
+### to get a user's company
+
+- campaign/get-user-company :get
+
 ---
 
 # Impementation by Ilyas
