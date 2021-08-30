@@ -8,6 +8,7 @@ const { authentication } = require("../middleware/isAuth");
 const {
   addCampaignSchema,
   getByYearSchema,
+  updateCampaignSchema,
   campaginSchema,
   actionSchema,
 } = require("../validation/campagin");
@@ -46,6 +47,14 @@ router.post(
   authentication,
   campaign.getAllCompleteCampaignsForASpecificCompany
 );
+
+router.patch(
+  "/update/:id",
+  authentication,
+  validation(updateCampaignSchema),
+  campaign.updateCampaign
+);
+
 // router.delete("/delete-campagin/:id", authentication, campagin.deleteCampagin);
 // router.post("/create-campagin", authentication, campagin.createCampagin);
 // router.put("/update-campagin/:id", authentication, campagin.updateCampagin);

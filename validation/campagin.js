@@ -23,3 +23,10 @@ exports.ActionSchema = yup.object({
   action_type: yup.string(),
   target: yup.string(),
 });
+
+exports.updateCampaignSchema = yup.object({
+  campaignType: yup.string(),
+  thematic: yup.string(),
+  startDate: yup.date(),
+  endDate: yup.date(),
+});

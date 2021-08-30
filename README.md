@@ -86,6 +86,52 @@ https://campaign-tool-restapi.herokuapp.com/
 
 - campaign/get-all-completed-campaigns/:id: :post { where id = companyId }
 
+### to update a campaign
+
+- campaign/update/:id: :patch
+
+```js
+{
+    campaignType: {
+        type: String
+    },
+    thematic: {
+        type: String
+    },
+    startDate: {
+        type: Date
+    },
+    endDate: {
+        type: Date
+    },
+    actions: [
+        {
+            actionType: {
+                type: String
+            },
+            target: {
+                type: String
+            },
+            age: {
+                type: String
+            },
+            gender: {
+                type: String
+            },
+            channelType: {
+                type: String
+            },
+            channelCost: {
+                type: Number
+            },
+            channelVolume: {
+                type: Number
+            },
+        }
+    ]
+}
+```
+
 ---
 
 # Impementation by Ilyas

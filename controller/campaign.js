@@ -267,6 +267,23 @@ exports.getAllCompleteCampaignsForASpecificCompany = promise(
   }
 );
 
+exports.updateCampaign = promise(async (req, res) => {
+  const { id } = req.params;
+  const updateCampaign = await Campaign.updateOne(
+    { _id: id },
+    {
+      $set: {
+        ...req.body,
+      },
+    }
+  );
+
+  const campaign = await Campaign.findById(id);
+  if (!campaign) throw new Exceptions.NotFound("No campaign found");
+
+  res.status(200).json({ message: "Successfully updated campaign", campaign });
+});
+
 //
 //
 //
