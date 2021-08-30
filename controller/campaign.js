@@ -245,6 +245,28 @@ exports.deleteCampaign = promise(async (req, res) => {
   res.status(200).json({ message: "Successfully deleted campaign" });
 });
 
+exports.getAllInprogressCampaignsForASpecificCompany = promise(
+  async (req, res) => {
+    const { id } = req.params;
+
+    const campaigns = await Campaign.find({ companyId: id, inProgress: true });
+    if (!campaigns) throw new Exceptions.NotFound("No campaigns found");
+
+    res.status(200).json({ campaigns });
+  }
+);
+
+exports.getAllCompleteCampaignsForASpecificCompany = promise(
+  async (req, res) => {
+    const { id } = req.params;
+
+    const campaigns = await Campaign.find({ companyId: id, completed: true });
+    if (!campaigns) throw new Exceptions.NotFound("No campaigns found");
+
+    res.status(200).json({ campaigns });
+  }
+);
+
 //
 //
 //

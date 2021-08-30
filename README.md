@@ -78,6 +78,14 @@ https://campaign-tool-restapi.herokuapp.com/
 
 - campaign/delete/:id: :delete
 
+### to get all inprogress campaigns of a single company
+
+- campaign/get-all-inprogress-campaigns/:id: :post { where id = companyId }
+
+### to get all completed campaigns of a single company
+
+- campaign/get-all-completed-campaigns/:id: :post { where id = companyId }
+
 ---
 
 # Impementation by Ilyas
