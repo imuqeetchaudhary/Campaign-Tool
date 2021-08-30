@@ -1,7 +1,5 @@
 const { Campaign } = require("../models/campaign");
 const Company = require("../models/company");
-const Action = require("../models/actions");
-const Channel = require("../models/channel");
 const User = require("../models/user");
 const excel = require("exceljs");
 const Exceptions = require("../utils/custom-exceptions");
@@ -16,9 +14,51 @@ exports.addCampaign = promise(async (req, res) => {
   const company = await Company.findOne({ creater: user._id });
   if (!company) throw new Exceptions.NotFound("Company not found");
 
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const date = new Date(body.startDate);
+  const monthName = months[date.getMonth()];
+  const year = date.getFullYear();
+
+  function getWeek(date) {
+    var days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+      prefixes = ["1", "2", "3", "4", "5"];
+
+    return prefixes[Math.floor(date.getDate() / 7)];
+  }
+  const week = getWeek(date);
+
+  console.log(date);
+  console.log(year);
+  console.log(monthName);
+  console.log(week);
+
   const newCampaign = new Campaign({
     ...body,
     companyId: company._id,
+    year: year,
+    monthName: monthName,
+    week: week,
   });
 
   newCampaign.save();
@@ -27,30 +67,202 @@ exports.addCampaign = promise(async (req, res) => {
     .json({ message: "Successfully added a new campaign", newCampaign });
 });
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+exports.campaginsByYear = async (req, res) => {
+  try {
+    const { year, companyId } = req.body;
 
+    const monthName = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const data = [];
+    let dataObj = {};
+
+    for (var i = 0; i < monthName.length; i++) {
+      const S1 = await Campaign.find({
+        year,
+        companyId: companyId,
+        monthName: monthName[i],
+        week: "2",
+        week: "1",
+      });
+      const S2 = await Campaign.find({
+        year,
+        companyId: companyId,
+        monthName: monthName[i],
+        week: "2",
+      });
+      const S3 = await Campaign.find({
+        year,
+        companyId: companyId,
+        monthName: monthName[i],
+        week: "3",
+      });
+      const S4 = await Campaign.find({
+        year,
+        companyId: companyId,
+        monthName: monthName[i],
+        week: "4",
+      });
+      dataObj.month = monthName[i];
+      dataObj.S1 = S1;
+      dataObj.S2 = S2;
+      dataObj.S3 = S3;
+      dataObj.S4 = S4;
+      console.log(dataObj);
+      data.push(dataObj);
+      dataObj = {};
+    }
+    res.status("200").json({
+      data,
+    });
+  } catch (err) {
+    res.status("500").send({
+      message: err.message,
+    });
+  }
+};
+
+exports.getExcel = async (req, res) => {
+  try {
+    const { year, companyId } = req.body;
+
+    const monthName = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const data = [];
+    let dataObj = {};
+
+    for (var i = 0; i < monthName.length; i++) {
+      const S1 = await Campaign.find({
+        year,
+        companyId: companyId,
+        monthName: monthName[i],
+        week: "2",
+        week: "1",
+      });
+      const S2 = await Campaign.find({
+        year,
+        companyId: companyId,
+        monthName: monthName[i],
+        week: "2",
+      });
+      const S3 = await Campaign.find({
+        year,
+        companyId: companyId,
+        monthName: monthName[i],
+        week: "3",
+      });
+      const S4 = await Campaign.find({
+        year,
+        companyId: companyId,
+        monthName: monthName[i],
+        week: "4",
+      });
+      dataObj.month = monthName[i];
+      dataObj.S1 = S1;
+      dataObj.S2 = S2;
+      dataObj.S3 = S3;
+      dataObj.S4 = S4;
+      data.push(dataObj);
+      dataObj = {};
+    }
+
+    let workbook = new excel.Workbook();
+    let worksheet = workbook.addWorksheet("campagins");
+
+    worksheet.columns = [
+      {
+        header: "month",
+        key: "month",
+        width: 25,
+      },
+      {
+        header: "S1",
+        key: "S1",
+        width: 25,
+      },
+      {
+        header: "S2",
+        key: "S2",
+        width: 25,
+      },
+      {
+        header: "S3",
+        key: "S3",
+        width: 25,
+      },
+      {
+        header: "S4",
+        key: "S4",
+        width: 25,
+      },
+    ];
+    worksheet.addRows(data);
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=" + "campagins.xlsx"
+    );
+
+    return workbook.xlsx.write(res).then(function () {
+      res.status(200).end();
+    });
+  } catch (err) {
+    res.status("500").send({
+      message: err.message,
+    });
+  }
+};
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 // async function updateCampagin(req, res) {
 //   try {
-//     const { id } = req.params;
+//
+//  const { id } = req.params;
 //     const newCampaginValues = {
 //       $set: {
 //         ...req.body,
@@ -182,234 +394,9 @@ exports.addCampaign = promise(async (req, res) => {
 //   }
 // }
 
-// async function campaginsByYear(req, res) {
-//   try {
-//     const { year, company } = req.body;
-
-//     const companyObj = await Company.findOne({
-//       company,
-//     });
-//     const monthName = [
-//       "January",
-//       "February",
-//       "March",
-//       "April",
-//       "May",
-//       "June",
-//       "July",
-//       "August",
-//       "September",
-//       "October",
-//       "November",
-//       "December",
-//     ];
-//     console.log(monthName[0]);
-//     const data = [];
-//     let dataObj = {};
-
-//     for (var i = 0; i < monthName.length; i++) {
-//       const S1 = await Campaign.find({
-//         year,
-//         company: companyObj._id,
-//         month: monthName[i],
-//         week: "2",
-//         week: "1",
-//       }).select("-month -year -week");
-//       const S2 = await Campaign.find({
-//         year,
-//         company: companyObj._id,
-//         month: monthName[i],
-//         week: "2",
-//       }).select("-month -year -week");
-//       const S3 = await Campaign.find({
-//         year,
-//         company: companyObj._id,
-//         month: monthName[i],
-//         week: "3",
-//       }).select("-month -year -week");
-//       const S4 = await Campaign.find({
-//         year,
-//         company: companyObj._id,
-//         month: monthName[i],
-//         week: "4",
-//       }).select("-month -year -week");
-//       dataObj.month = monthName[i];
-//       dataObj.S1 = S1;
-//       dataObj.S2 = S2;
-//       dataObj.S3 = S3;
-//       dataObj.S4 = S4;
-//       data.push(dataObj);
-//       dataObj = {};
-//     }
-//     // if(year){
-//     //   const start_range = year.concat("-01-01");
-//     //   const end_range = year.concat("-12-31");
-//     // }
-
-//     //   const user = await User.findOne({ company });
-//     // let campagins = []
-//     // if(year && company){
-//     //   campagins = await Campaign.find({
-//     //    year,company:ucompanyObj_id
-//     //   });
-//     // }
-
-//     // for (var i = 0; i < campagins.length; i++) {
-//     //   const campagin = campagins[i];
-//     //   const actionArray = campagin.actions;
-//     //   delete campagin.actions;
-//     //   const actionObjs = [];
-//     //   const channelObjs = [];
-//     //   for (var j = 0; j < actionArray.length; j++) {
-//     //     const id = actionArray[j]
-//     //     let action = await Action.findById({ _id: id }).select(
-//     //       "action_type channels"
-//     //     );
-//     //     const channelsArray = action.channels;
-//     //     delete action.channels;
-//     //     for (var k = 0; k < channelsArray.length; k++) {
-//     //       let channel = await Channel.findById({
-//     //         _id: channelsArray[k],
-//     //       }).select("cost");
-//     //       channelObjs.push(channel);
-//     //     }
-//     //     const obj1 = { action_type: action.action_type, channels: channelObjs };
-
-//     //     actionObjs.push(obj1);
-//     //   }
-
-//     //   const obj2 = { actions: actionObjs };
-//     //   campagins[i] = { ...campagin._doc, ...obj2 };
-//     // }
-
-//     res.status("200").json({
-//       data,
-//     });
-//   } catch (err) {
-//     res.status("500").send({
-//       message: err.message,
-//     });
-//   }
-// }
-
-// async function getExcelReport(req, res) {
-//   try {
-//     const { year, company } = req.body;
-
-//     const companyObj = await Company.findOne({
-//       company,
-//     });
-//     const monthName = [
-//       "January",
-//       "February",
-//       "March",
-//       "April",
-//       "May",
-//       "June",
-//       "July",
-//       "August",
-//       "September",
-//       "October",
-//       "November",
-//       "December",
-//     ];
-//     console.log(monthName[0]);
-//     const data = [];
-//     let dataObj = {};
-
-//     for (var i = 0; i < monthName.length; i++) {
-//       const S1 = await Campaign.find({
-//         year,
-//         company: companyObj._id,
-//         month: monthName[i],
-//         week: "1",
-//       }).select("-month -year -week");
-//       const S2 = await Campaign.find({
-//         year,
-//         company: companyObj._id,
-//         month: monthName[i],
-//         week: "2",
-//       }).select("-month -year -week");
-//       const S3 = await Campaign.find({
-//         year,
-//         company: companyObj._id,
-//         month: monthName[i],
-//         week: "3",
-//       }).select("-month -year -week");
-//       const S4 = await Campaign.find({
-//         year,
-//         company: companyObj._id,
-//         month: monthName[i],
-//         week: "4",
-//       }).select("-month -year -week");
-//       dataObj.month = monthName[i];
-//       dataObj.S1 = S1;
-//       dataObj.S2 = S2;
-//       dataObj.S3 = S3;
-//       dataObj.S4 = S4;
-//       data.push(dataObj);
-//       dataObj = {};
-//     }
-//     // res.json(data);
-
-//     let workbook = new excel.Workbook();
-//     let worksheet = workbook.addWorksheet("campagins");
-
-//     worksheet.columns = [
-//       {
-//         header: "month",
-//         key: "month",
-//         width: 25,
-//       },
-//       // { header: "", key: "", width: 25 },
-//       {
-//         header: "S1",
-//         key: "S1",
-//         width: 25,
-//       },
-//       {
-//         header: "S2",
-//         key: "S2",
-//         width: 25,
-//       },
-//       {
-//         header: "S3",
-//         key: "S3",
-//         width: 25,
-//       },
-//       {
-//         header: "S4",
-//         key: "S4",
-//         width: 25,
-//       },
-//       // { header: "Action on the whole month", key: "S4", width: 25 },
-//     ];
-//     worksheet.addRows(data);
-//     res.setHeader(
-//       "Content-Type",
-//       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-//     );
-//     res.setHeader(
-//       "Content-Disposition",
-//       "attachment; filename=" + "campagins.xlsx"
-//     );
-
-//     return workbook.xlsx.write(res).then(function () {
-//       res.status(200).end();
-//     });
-//   } catch (err) {
-//     res.send({
-//       message: err.message,
-//     });
-//   }
-// }
-
 // module.exports = {
-//   createCampagin,
 //   updateCampagin,
 //   deleteCampagin,
 //   getCampagins,
 //   campaginDetail,
-//   campaginsByYear,
-//   getExcelReport,
 // };

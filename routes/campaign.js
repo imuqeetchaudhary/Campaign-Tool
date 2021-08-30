@@ -7,6 +7,7 @@ const { validation } = require("../middleware/validation");
 const { authentication } = require("../middleware/isAuth");
 const {
   addCampaignSchema,
+  getByYearSchema,
   campaginSchema,
   actionSchema,
 } = require("../validation/campagin");
@@ -16,6 +17,20 @@ router.post(
   authentication,
   validation(addCampaignSchema),
   campaign.addCampaign
+);
+
+router.post(
+  "/get-by-year",
+  authentication,
+  validation(getByYearSchema),
+  campaign.campaginsByYear
+);
+
+router.post(
+  "/get-excel",
+  authentication,
+  validation(getByYearSchema),
+  campaign.getExcel
 );
 
 // router.delete("/delete-campagin/:id", authentication, campagin.deleteCampagin);

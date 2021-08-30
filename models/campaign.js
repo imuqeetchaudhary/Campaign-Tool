@@ -18,6 +18,18 @@ const campaignSchema = new schema({
     type: Date,
     require: true,
   },
+  year: {
+    type: String,
+    require: true,
+  },
+  monthName: {
+    type: String,
+    require: true,
+  },
+  week: {
+    type: String,
+    require: true,
+  },
   endDate: {
     type: Date,
     require: true,

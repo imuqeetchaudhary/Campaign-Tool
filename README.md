@@ -48,6 +48,28 @@
 }
 ```
 
+### to get campaigns by year
+
+- campaign/get-by-year :post
+
+```js
+{
+    companyId: String,
+    year: String
+}
+```
+
+### to download excel file of campaigns by year
+
+- campaign/get-excel :post
+
+```js
+{
+    companyId: String,
+    year: String
+}
+```
+
 ---
 
 # Impementation by Ilyas

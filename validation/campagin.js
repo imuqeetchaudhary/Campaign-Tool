@@ -5,7 +5,12 @@ exports.addCampaignSchema = yup.object({
   thematic: yup.string().required(),
   startDate: yup.date().required(),
   endDate: yup.date().required(),
-})
+});
+
+exports.getByYearSchema = yup.object({
+  companyId: yup.string().required(),
+  year: yup.string().required(),
+});
 
 exports.compaginSchema = yup.object({
   thematic: yup.string(),
