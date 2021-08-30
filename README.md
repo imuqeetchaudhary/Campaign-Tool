@@ -1,8 +1,56 @@
-## Impementation by Abdul Muqeet Arshad
+# Impementation by Abdul Muqeet Arshad
+
+## Routes for Campaigns
+
+### to add a new campaign
+
+- campaign/add :post
+
+```js
+{
+    campaignType: {
+        type: String
+    },
+    thematic: {
+        type: String
+    },
+    startDate: {
+        type: Date
+    },
+    endDate: {
+        type: Date
+    },
+    actions: [
+        {
+            actionType: {
+                type: String
+            },
+            target: {
+                type: String
+            },
+            age: {
+                type: String
+            },
+            gender: {
+                type: String
+            },
+            channelType: {
+                type: String
+            },
+            channelCost: {
+                type: Number
+            },
+            channelVolume: {
+                type: Number
+            },
+        }
+    ]
+}
+```
 
 ---
 
-## Impementation by Ilyas
+# Impementation by Ilyas
 
 ### Note
 

@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const dbConnect = require("./utils/dbConnect");
 const authRoutes = require("./routes/auth");
 const campaignRoutes = require("./routes/campaign");
+const campaign = require("./routes/campaign");
 const userRoutes = require("./routes/user")
 const companyRoutes = require("./routes/company")
 const cors = require("cors")
@@ -25,6 +26,7 @@ app.use(cors())
 
 app.use("/auth", authRoutes);
 app.use("/campagin", campaignRoutes);
+app.use("/campaign", campaign);
 app.use("/user",userRoutes)
 app.use("/company", companyRoutes)
 
