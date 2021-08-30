@@ -66,6 +66,14 @@ const campaignSchema = new schema({
       },
     },
   ],
+  inProgress: {
+    type: Boolean,
+    default: true,
+  },
+  completed: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 exports.Campaign = mongoose.model("Campaign", campaignSchema);
