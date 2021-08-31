@@ -146,6 +146,25 @@ https://campaign-tool-restapi.herokuapp.com/
 }
 ```
 
+### to get a single campaign
+
+- campaign/get-campaign/:id: get
+
+### to get all users
+
+- campaign/get-all-users :get
+
+### to add a user company
+
+- campaign/add-user-company :post
+
+```js
+{
+    userId: String,
+    companyName: String
+}
+```
+
 ---
 
 # Impementation by Ilyas

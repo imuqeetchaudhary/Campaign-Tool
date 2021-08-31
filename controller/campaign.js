@@ -307,6 +307,35 @@ exports.updateCompany = promise(async (req, res) => {
 
   res.status(200).json({ message: "Successfully updated company", company });
 });
+
+exports.getSingleCampaign = promise(async (req, res) => {
+  const { id } = req.params;
+  const campaign = await Campaign.findById(id);
+  if (!campaign) throw new Exceptions.NotFound("No campaign found");
+
+  res.status(200).json({ campaign });
+});
+
+exports.getAllUsers = promise(async (req, res) => {
+  const users = await User.find();
+  if (!users) throw new Exceptions.NotFound("no user found");
+
+  res.status(200).json({ users });
+});
+
+exports.addUserCompany = promise(async (req, res) => {
+  const { userId, companyName } = req.body;
+
+  const newCompany = new Company({
+    creater: userId,
+    company: companyName,
+  });
+
+  await newCompany.save();
+  res
+    .status(200)
+    .json({ message: "Successfully saved a new company", newCompany });
+});
 //
 //
 //

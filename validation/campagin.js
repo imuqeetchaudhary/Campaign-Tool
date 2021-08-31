@@ -19,6 +19,11 @@ exports.compaginSchema = yup.object({
   end_date: yup.date(),
 });
 
+exports.addUserCompanySchema = yup.object({
+  userId: yup.string().required(),
+  companyName: yup.string().required(),
+});
+
 exports.ActionSchema = yup.object({
   action_type: yup.string(),
   target: yup.string(),
