@@ -345,6 +345,15 @@ exports.addUserCompany = promise(async (req, res) => {
     company: companyName,
   });
 
+  const updateUser = await User.updateOne(
+    { _id: userId },
+    {
+      $set: {
+        company: companyName,
+      },
+    }
+  );
+
   await newCompany.save();
   res
     .status(200)
