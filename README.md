@@ -165,6 +165,10 @@ https://campaign-tool-restapi.herokuapp.com/
 }
 ```
 
+### to get all campaigns
+
+- campaigns/get-all-campaigns :get
+
 ---
 
 # Impementation by Ilyas
