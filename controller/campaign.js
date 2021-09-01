@@ -114,11 +114,18 @@ exports.campaginsByYear = async (req, res) => {
         monthName: monthName[i],
         week: "4",
       });
+      const S5 = await Campaign.find({
+        year,
+        companyId: companyId,
+        monthName: monthName[i],
+        week: "5",
+      });
       dataObj.month = monthName[i];
       dataObj.S1 = S1;
       dataObj.S2 = S2;
       dataObj.S3 = S3;
       dataObj.S4 = S4;
+      dataObj.S5 = S5;
       console.log(dataObj);
       data.push(dataObj);
       dataObj = {};
@@ -180,11 +187,18 @@ exports.getExcel = async (req, res) => {
         monthName: monthName[i],
         week: "4",
       });
+      const S5 = await Campaign.find({
+        year,
+        companyId: companyId,
+        monthName: monthName[i],
+        week: "5",
+      });
       dataObj.month = monthName[i];
       dataObj.S1 = S1;
       dataObj.S2 = S2;
       dataObj.S3 = S3;
       dataObj.S4 = S4;
+      dataObj.S5 = S5;
       data.push(dataObj);
       dataObj = {};
     }

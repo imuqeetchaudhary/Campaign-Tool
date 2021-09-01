@@ -67,7 +67,7 @@ router.post(
   campaign.addUserCompany
 );
 
+module.exports = router;
+
 // router.post("/get-campagin", authentication, campagin.getCampagins);
 // router.get("/detail/:id", authentication, campagin.campaginDetail);
-
-module.exports = router;
