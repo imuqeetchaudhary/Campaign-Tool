@@ -67,7 +67,7 @@ router.post(
   campaign.addUserCompany
 );
 
-router.get("/get-all-campaigns", authentication, campaign.getAllCampaigns);
+router.get("/get-all-campaigns", campaign.getAllCampaigns);
 
 module.exports = router;
 

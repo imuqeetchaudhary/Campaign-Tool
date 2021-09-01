@@ -167,7 +167,7 @@ https://campaign-tool-restapi.herokuapp.com/
 
 ### to get all campaigns
 
-- campaigns/get-all-campaigns :get
+- campaign/get-all-campaigns :get
 
 ---
 
