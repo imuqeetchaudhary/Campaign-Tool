@@ -8,6 +8,7 @@ const {
   getByYearSchema,
   updateCampaignSchema,
   addUserCompanySchema,
+  getCompanyCampaignsSchema,
 } = require("../validation/campagin");
 
 router.post(
@@ -68,6 +69,12 @@ router.post(
 );
 
 router.get("/get-all-campaigns", campaign.getAllCampaigns);
+router.post(
+  "/get-all-campaigns-of-company",
+  authentication,
+  validation(getCompanyCampaignsSchema),
+  campaign.getAllCampaignsOfASingleCompany
+);
 
 module.exports = router;
 

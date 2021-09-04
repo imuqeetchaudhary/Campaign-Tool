@@ -288,6 +288,15 @@ exports.getAllCampaigns = promise(async (req, res) => {
   res.status(200).json({ campaigns });
 });
 
+exports.getAllCampaignsOfASingleCompany = promise(async (req, res) => {
+  const body = req.body;
+
+  const campaigns = await Campaign.find({ companyId: body.companyId });
+  if (!campaigns) throw new Exceptions.NotFound("No campaigns found");
+
+  res.status(200).json({ campaigns });
+});
+
 exports.updateCampaign = promise(async (req, res) => {
   const { id } = req.params;
   const updateCampaign = await Campaign.updateOne(

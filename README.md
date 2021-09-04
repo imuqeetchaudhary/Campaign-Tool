@@ -142,7 +142,7 @@ https://campaign-tool-restapi.herokuapp.com/
 
 ```js
 {
-  company: String;
+    company: String;
 }
 ```
 
@@ -168,6 +168,16 @@ https://campaign-tool-restapi.herokuapp.com/
 ### to get all campaigns
 
 - campaign/get-all-campaigns :get
+
+### to get campaigns of a single company
+
+- campaign/get-all-campaigns-of-company :post
+
+```js
+{
+    companyId: String
+}
+```
 
 ---
 

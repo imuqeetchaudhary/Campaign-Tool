@@ -35,3 +35,7 @@ exports.updateCampaignSchema = yup.object({
   startDate: yup.date(),
   endDate: yup.date(),
 });
+
+exports.getCompanyCampaignsSchema = yup.object({
+  companyId: yup.string().required(),
+});
